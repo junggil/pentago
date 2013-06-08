@@ -1,0 +1,359 @@
+<html>
+
+<head>
+<style>
+
+body {
+  background-color: #DDDDDD;
+}
+
+img {
+  margin: 5px;
+  float: left;
+  -webkit-border-radius:2px;
+  border-radius:2px;  
+  box-shadow:rgba(0,0,0,0.6) 1px 1px 6px;
+}
+
+.table {
+  width: 1300px;
+  margin: 10px auto 10px auto;
+}
+
+.title {
+  margin: 15px auto 5px auto;
+  padding: 5px;
+  width: 700px;
+  background-color: #222222;
+  font-family: verdana, sans-serif;
+  font-weight: bold;
+  font-size: 14px;
+  color: white;
+  text-shadow:rgba(0,0,0,0.4) 0px 0px 1px;
+
+  border-radius:5px;  
+  box-shadow:rgba(0,0,0,0.8) 0px 0px 10px;
+}
+
+.player_text_box {
+  width: 800px;
+  float: left;
+}
+
+.player_text {
+  margin: 5px auto 5px auto;
+  width: 450px;
+  font-family: verdana, sans-serif;
+  font-weight: bold;
+  font-size: 12px;
+  padding: 2px 10px 2px 10px;
+  color: white;
+  text-shadow:rgba(0,0,0,0.4) 0px 0px 1px;
+
+  background-color: #73b345;
+  border-radius:3px;  
+}
+
+.table_pad {
+  margin: 15px auto 5px auto;
+  padding: 5px;
+  width: 800px;
+  height: 600x;
+  background-color: #578F2E;
+
+  float: clear;
+  overflow: hidden;
+
+  border-radius:5px;  
+  box-shadow:rgba(0,0,0,0.8) 0px 0px 10px;
+}
+
+.table_box1 {
+  width: 800px;
+  float: left;
+}
+
+.table_box2 {
+  margin: 20px auto 20px auto;
+  width: 500px;
+  height: 500px;
+}
+
+.board_block {
+  margin: 2px;
+  padding: 5px;
+  width: 225px;
+  height: 225px;
+  background-color: #CD4933;
+  float: left;
+
+  border: 5px solid #F9F9EC;
+  border-radius:10px;  
+  box-shadow:rgba(0,0,0,0.8) 0px 0px 12px;
+}
+
+.score_pad {
+  margin: 15px auto 5px auto;
+  padding: 5px;
+  width: 200px;
+  height: 600x;
+  background-color: #578F2E;
+
+  float: clear;
+  overflow: hidden;
+
+  border-radius:5px;  
+  box-shadow:rgba(0,0,0,0.8) 0px 0px 10px;
+}
+
+.ball_white {
+    margin: 5px;
+    width: 64px;
+    height: 64px;
+    border-radius: 32px;
+    background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(190,190,190,1) 99%);
+    background: linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(190,190,190,1) 99%);
+    box-shadow: inset 0 -5px 15px rgba(0,0,0,0.6), inset -2px -1px 40px rgba(0,0,0,0.4), 1px 1px 4px rgba(0,0,0,0.5);
+    float: left;
+}
+
+.ball_black {
+    margin: 5px;
+    width: 64px;
+    height: 64px;
+    border-radius: 32px;
+    background: -webkit-linear-gradient(top,  rgba(180,180,180,1) 0%,rgba(20,20,20,1) 99%);
+    background: linear-gradient(top,  rgba(110,110,110,1) 0%,rgba(20,20,20,1) 99%);
+    box-shadow: inset 0 -5px 15px rgba(0,0,0,0.6), inset -2px -1px 40px rgba(0,0,0,0.4), 1px 1px 4px rgba(0,0,0,0.5);
+    float: left;
+}
+
+.ball_empty {
+    margin: 5px;
+    width: 64px;
+    height: 64px;
+    border-radius: 32px;
+    box-shadow: inset 0 -5px 15px rgba(0,0,0,0.15), inset -2px -1px 65px rgba(0,0,0,0.35), 0px 0px 2px rgba(0,0,0,0.3);
+    float: left;
+}
+
+.smog {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.6);
+    display: none;
+}
+
+.result {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 500px;
+  margin-left: -250px;
+  height: 320px;
+  margin-top: -160px;
+  font-family: verdana, sans-serif;
+  font-weight: bold;
+  font-size: 40px;
+  background: #EEEEEE;
+  box-shadow:rgba(0,0,0,1.0) 0px 0px 20px;
+  border-radius:8px;  
+  display: none;
+}
+
+</style>
+
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="jQueryRotate.2.2.js"></script>
+
+</head>
+
+<body>
+<div class='smog' id="SMOG">
+  <div class='result' id="RESULT">
+  <center>
+  <h2 id="WINNER">PLAYER-1 Win</h2>
+  <span id="SCORE">0 vs 0</span>
+  <br>
+  <span style="font-size:20px;" id="LOSER"><br>PLAYER-2 Lose</span>
+  </center>
+  </div>
+</div>
+
+<div class='table'>
+  <div class="title">
+    <center>TEAM-V Code<font color=red>JAM</font> / 201306 / 3rd &nbsp;&nbsp;&nbsp;<font color=red id="ROOM"></font></center>
+  </div>
+  
+  <!-- TABLE -->
+  <div class='table_pad'>
+    <div class='player_text_box'>
+      <div class='player_text'>
+      <center id="A-STR">PLAYER 1</center>
+      </div>
+    </div> 
+    <div class='table_box1'>
+    <div class='table_box2' id="TABLE">
+      <div class='board_block' id="BLOCK_A">
+        <div class="ball_empty" id="BALL_A0"></div>
+        <div class="ball_empty" id="BALL_A1"></div>
+        <div class="ball_empty" id="BALL_A2"></div>
+        <div class="ball_empty" id="BALL_A3"></div>
+        <div class="ball_empty" id="BALL_A4"></div>
+        <div class="ball_empty" id="BALL_A5"></div>
+        <div class="ball_empty" id="BALL_A6"></div>
+        <div class="ball_empty" id="BALL_A7"></div>
+        <div class="ball_empty" id="BALL_A8"></div>
+      </div>
+      <div class='board_block' id="BLOCK_B">
+        <div class="ball_empty" id="BALL_B0"></div>
+        <div class="ball_empty" id="BALL_B1"></div>
+        <div class="ball_empty" id="BALL_B2"></div>
+        <div class="ball_empty" id="BALL_B3"></div>
+        <div class="ball_empty" id="BALL_B4"></div>
+        <div class="ball_empty" id="BALL_B5"></div>
+        <div class="ball_empty" id="BALL_B6"></div>
+        <div class="ball_empty" id="BALL_B7"></div>
+        <div class="ball_empty" id="BALL_B8"></div>
+      </div>
+      <div class='board_block' id="BLOCK_C">
+        <div class="ball_empty" id="BALL_C0"></div>
+        <div class="ball_empty" id="BALL_C1"></div>
+        <div class="ball_empty" id="BALL_C2"></div>
+        <div class="ball_empty" id="BALL_C3"></div>
+        <div class="ball_empty" id="BALL_C4"></div>
+        <div class="ball_empty" id="BALL_C5"></div>
+        <div class="ball_empty" id="BALL_C6"></div>
+        <div class="ball_empty" id="BALL_C7"></div>
+        <div class="ball_empty" id="BALL_C8"></div>
+      </div>
+      <div class='board_block' id="BLOCK_D">
+        <div class="ball_empty" id="BALL_D0"></div>
+        <div class="ball_empty" id="BALL_D1"></div>
+        <div class="ball_empty" id="BALL_D2"></div>
+        <div class="ball_empty" id="BALL_D3"></div>
+        <div class="ball_empty" id="BALL_D4"></div>
+        <div class="ball_empty" id="BALL_D5"></div>
+        <div class="ball_empty" id="BALL_D6"></div>
+        <div class="ball_empty" id="BALL_D7"></div>
+        <div class="ball_empty" id="BALL_D8"></div>
+      </div>
+    </div>
+    </div>
+    <div class='player_text_box'>
+      <div class='player_text'>
+      <center id="B-STR">PLAYER 2</center>
+      </div>
+    </div>
+  </div>
+  <div class='score_pad'>
+  </div>
+  
+</div>
+
+</body>
+
+<script>
+
+var old_turn = 0;
+
+function page(room) {
+  //url = "http://pentago.herokuapp.com/" + room;
+  url = "http://192.168.0.2:5000/" + room;
+  $("#ROOM").html(room);
+  $.getJSON(url, function(data) {
+    if (data.finish == true) {
+      $("#SMOG").show();  
+      $("#RESULT").show();
+
+      if (data.win[1] == data.win[3]) {
+          $("#WINNER").html("Draw Game");
+          $("#SCORE").html(data.color[0] + " vs " + data.color[1]);
+          $("#LOSER").html(data.win[1] + ' : ' + data.win[3]);
+      } else {
+        if (data.win[1] > data.win[3]) {
+          $("#WINNER").html(data.color[0] + " Win");
+          $("#SCORE").html(data.win[1] + " vs " + data.win[3]);
+          $("#LOSER").html("<br>" + data.color[1] + " Lose");
+        } else {
+          $("#WINNER").html(data.color[1] + " Win");
+          $("#SCORE").html(data.win[1] + " vs " + data.win[3]);
+          $("#LOSER").html("<br>" + data.color[0] + " Lose");
+        }
+      }
+      return;        
+    } else {
+      $("#SMOG").hide();  
+      $("#RESULT").hide();  
+    }
+    
+    if (data.color.length == 0) {
+      $("#A-STR").html("Waiting Player...");
+      $("#B-STR").html("Waiting Player...");
+      return;
+    } else if (data.color.length == 1) {
+      $("#A-STR").html("Here comes " + data.color[0]);
+      $("#B-STR").html("Waiting Player...");
+      return;
+    }
+    
+    $("#A-STR").html("<font color=gold>" + data.color[0] + "</font> &nbsp;&nbsp; WIN: " + data.win[1]);
+    $("#B-STR").html("<font color=gold>" + data.color[1] + "</font> &nbsp;&nbsp; WIN: " + data.win[3]);
+    
+    if (data.play_cnt != 0 && old_turn != data.play_cnt && data.finish == false) {
+      block = data.turn[3].charAt(0);
+      turn = data.turn[3].charAt(1);
+      if (turn == "L") {
+        $("#BLOCK_" + block).rotate({
+          angle: 90,
+          animateTo: 0,
+          duration: 1000
+        });
+      } else {
+        $("#BLOCK_" + block).rotate({
+          angle: -90,
+          animateTo: 0,
+          duration: 1000
+        });
+      }  
+    }
+    old_turn = data.play_cnt;
+    
+    var blocks = ["A","B","C","D"];
+    for (var i in blocks) {
+      for (var j=0; j < 9; j++) { 
+        ball = data.board[blocks[i]][j];
+        if (ball == "white") {
+          $("#BALL_" + blocks[i] + j).removeClass("ball_black");
+          $("#BALL_" + blocks[i] + j).removeClass("ball_empty");
+          $("#BALL_" + blocks[i] + j).addClass("ball_white");
+        } else if (ball == "black") {
+          $("#BALL_" + blocks[i] + j).removeClass("ball_white");
+          $("#BALL_" + blocks[i] + j).removeClass("ball_empty");
+          $("#BALL_" + blocks[i] + j).addClass("ball_black");
+        } else if (ball == "empty") {
+          $("#BALL_" + blocks[i] + j).removeClass("ball_white");
+          $("#BALL_" + blocks[i] + j).removeClass("ball_black");
+          $("#BALL_" + blocks[i] + j).addClass("ball_empty");
+        }
+      } 
+    }
+    
+  });
+}
+
+$( window ).load(function() {
+  //$("*").css("border", "1px solid red");
+
+  name = window.prompt("Enter Room Name", "");
+  page(name);
+  var timer = setInterval("page(name)", 500);
+});
+</script>
+
+</html>
+
+
