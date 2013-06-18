@@ -5,11 +5,8 @@ app.configure =>
   app.set 'views', __dirname + '/views'
   app.set 'view options', {layout:false}
   app.register '.html', {compile: (str, options) -> return (locals) -> return str}
-  app.set 'jsonp callback', true
   app.use express.bodyParser()
   app.use express.methodOverride()
-  app.use app.router
-  app.use express.static(__dirname + '/public')
 
 app.configure 'development', () =>
   app.use express.errorHandler({ dumpExceptions: true, showStack: true })
@@ -179,9 +176,9 @@ app.get '/:room/play/:id/:target/:turn', (req, res) =>
    
     if w_result != "NotEnd"
         if w_result == "white"
-            game['win'][1] += 1
+            game['win'][(game['round'] % 2) * 2 + 1] += 1
         else
-            game['win'][3] += 1
+            game['win'][3 - (game['round'] % 2) * 2] += 1
 
         if (game['round'] + 1) < 10
             game['nextturn'] = 'hold on displaying result'
